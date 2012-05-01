@@ -1,0 +1,23 @@
+#!/system/bin/sh
+
+if [ -f /cache/downloadfile.apk ]; then
+  rm -r /cache/downloadfile*.apk
+fi
+
+if [ ! -h /cache/recovery ]; then
+  # /cache/recovery is not a symbolic link
+  rm -r /cache/recovery
+  if [ -d /mnt/cache/recovery ]; then
+    ln -s /mnt/cache/recovery /cache/recovery
+  fi
+fi
+
+# for camera
+chmod 0777 /dev/msm_camera/config0
+chmod 0777 /dev/msm_camera/config1
+chmod 0777 /dev/msm_camera/control0
+chmod 0777 /dev/msm_camera/control1
+chmod 0777 /dev/msm_camera/frame0
+chmod 0777 /dev/msm_camera/frame1
+chmod 0777 /dev/graphics/fb0
+

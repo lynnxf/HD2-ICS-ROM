@@ -1,0 +1,88 @@
+﻿### LICENSE:
+#
+# Copyright (C) 2011 Ahmad Amarullah ( http://amarullz.com/ )
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+### LANGUAGE STRING RESOURCE FILE
+#
+#   Language  : English
+#   By        : amarullz
+#
+
+#
+#--- COMMON SYSTEM STRING RESOURCE
+#
+text_ok=OK
+text_next=Далее >
+text_back=< Назад
+text_yes=Да
+text_no=Нет
+text_about=About
+text_calibrating=Калибровка
+text_quit=Покинуть установку
+text_quit_msg=Вы действительно хотите покинуть установку?
+
+#
+#-- CUSTOM STRING RESOURCE
+#
+common.for=для
+
+#langtest.title=Информация
+#langtest.multiline=Этот текст расположен в langs/ru.lang\
+#Используйте обратный слэш перед переходом на новую строку\
+#\
+#Официальный сайт прошивки icshd2.ucoz.ru\
+#\
+#Спасибо за использование прошивки <b>Nuke</b>
+#
+
+themes.title=Выберите тему
+themes.desc=Пожалуйста выберите тему которую вы хотите использовать в этом установочном тесте:
+
+welcome.title=Добро пожаловать
+welcome.text1=Вы собираетесь установить 
+welcome.text2=Прошивка Nuke отличается от всех остальных своей стабильностью и скоростью.
+welcome.version=Версия
+welcome.codename=Название
+welcome.updated=Обновлено
+welcome.next=Нажмите Далее для продолжения установки...
+
+terms.title=Условия
+terms.desc=Пожалуйста внимательно прочитайте условия использования прошивки Nuke
+terms.check=Я согласен с правилами использования...
+terms.confirm=Пожалуйста ознакомьтесь с соглашением...
+
+changelog.title=Список изменений
+changelog.desc=Список изменений прошивки Nuke
+
+programms.title=Выборочная установка
+programms.text1=Выберите программы, которые вы хотите установить
+
+install.1=Готово к установке
+install.2=Вся информация для установки была собрана и вы готовы установить Nuke для HTC HD2
+install.3=Нажмите далее для установки...
+install.4=Установка
+install.5=Установка Nuke...
+install.6=Пожалуйста подождите...
+
+finish.1=Установка завершена
+finish.2=Поздравляем!
+finish.3=Нажмите завершить
+finish.4=и перезагрузитесь
+finish.5=Наслаждайтесь!
+finish.6=Статус установки:
+finish.7=Перезагрузка устройства.
+notfinish.1=Установка не удалась!
+notfinish.2=Код ошибки установки:
+notfinish.3=Перезагрузить устройство

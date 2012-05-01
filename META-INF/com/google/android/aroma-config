@@ -1,0 +1,351 @@
+### LICENSE:
+#
+# Copyright (C) 2011 Ahmad Amarullah ( http://amarullz.com/ )
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+### FILE INFO:
+#
+# AROMA Installer 2.00 - AROMA Installer Test Script Configuration
+#       (c) 2011-2012 by Ahmad Amarullah
+#           amarullz - xda-developers
+#           http://www.amarullz.com/
+#
+#       Binary Version  : 2.00
+#       Binary Codename : Dahlia
+#
+### INFO:
+#
+# * AROMA Resource Dir  = META-INF/com/google/android/aroma
+#
+# * AROMA Temporary Dir = /tmp/aroma/
+#
+# * About Icon          = @alert - show <AROMA Resource Dir>/icons/alert.png
+#                         or if theme used it will find <themedir>/icon.alert.png
+#                         you can still access it via "icons/alert"
+#
+# * dp                  = Device Pixelate. WVGA/QHD = 3, HVGA = 2.
+#                         dp calculated with = round(min(width,height) / 160)
+#
+###
+
+##
+# Fix Colorspace Issue
+#
+# For device which have a problem with color ( not display the correct color )
+# try to set "force_colorspace" with ini_set. It may caused by wrong framebuffer
+# information that passed by kernel into framebuffer device.
+#
+# You can use one of following values:
+#   "rgba", "abgr", "argb", "bgra"
+#
+# NOTE: It must be in top most script, or you will got the color flicker
+#
+# ini_set("force_colorspace","rgba");
+#
+
+##
+# Forcing Device Pixelate Size
+#  defaut: floor( min( width, height ) / 160 )
+#
+# Usefull for tablet device, if interface was too big, you can
+# force dp size for smaller UI size.
+#
+#-------- Uncomment one of this to use custom dp size:
+#
+# ini_set("dp","1"); #-- LDPI ( 240x320 / QVGA )
+# ini_set("dp","2"); #-- MDPI ( 340x480 / HVGA )
+# ini_set("dp","3"); #-- HDPI ( 480x800 / WVGA )
+# ini_set("dp","4");
+# ini_set("dp","5");
+#
+
+
+##
+# Calibrate Touchscreen
+#  defaut: HTC Desire Touch Screen Calibrate Data [7.90,20,7.90,20]
+#
+# For other device, run the installer, then press "menu"
+# and select Calibrating Tools. Follow Instructions, and make
+# sure the touch screen has been valid in the testing step.
+#
+# In the end, there will be alert dialog with calibration data
+# ( green ), replace this calibrate() function with that data.
+#
+#-------- Uncomment This to insert calibrating data:
+calibrate("1.1229","17","1.1410","23","yes");
+#
+
+
+##
+# Custom Key Code - Usefull For Some Device which not used
+#                   Standard key code for up/down/select/back/menu
+#
+# You can capture the keycode in
+# recovery using "aroma-keycapture-flashable.zip" Available in
+# AROMA Installer Thread.
+#
+# Press some key when it run, it will return key code,
+# that key can override up/down/select/back/menu actions in
+# AROMA Installer, you can even set your home key for up, or
+# volume down for select item
+#
+#-------- Uncomment & Modify this Code:
+#
+# ini_set("customkeycode_up",     "115");
+# ini_set("customkeycode_down",   "114");
+# ini_set("customkeycode_select", "116");
+# ini_set("customkeycode_menu",   "229");
+# ini_set("customkeycode_back",   "158");
+#
+
+##
+# Initializing Rom Information
+#
+ini_set("rom_name",             "Nuke");
+ini_set("rom_version",          "v2.1");
+ini_set("rom_author",           "Jack_Nuke");
+ini_set("rom_device",           "HTC HD2");
+ini_set("rom_date",             "28.04.2012");
+
+
+##
+# Show Simple Splash
+#
+splash(
+  #-- Duration 2000ms / 2 seconds
+    3000,
+  
+  #-- <AROMA Resource Dir>/sample.png
+    "sample"
+);
+setvar("systemsize",getdisksize("/system","m"));
+setvar("sdextsize", getdisksize("/sd-ext","m"));
+
+
+#
+# Set Small Font to Support all fonts
+#
+fontresload( "0", "ttf/DroidSans.ttf;ttf/DroidSansArabic.ttf;ttf/DroidSansFallback.ttf;", "12" ); #-- Use sets of font (Font Family)
+
+  loadlang("langs/ru.lang");
+  fontresload( "0", "ttf/DroidSans.ttf", "12" );
+  fontresload( "1", "ttf/DroidSans.ttf", "18" );
+
+###################################################################################################################
+#
+# STEP 1 - SELECT THEME
+#
+theme("ics");
+  
+###################################################################################################################
+#
+# SHOW LANGUAGE TEST MULTILINE
+#
+#viewbox(
+#  #-- Title
+#    lang("langtest.title"),  #-- you can use lang("langtest.title") function or directly in string "<~langtest.title>"
+#  
+#  #-- Text
+#    "<~langtest.multiline>",
+#  
+#  #-- Icon
+#    "@info"
+#);
+#
+###################################################################################################################
+#
+# STEP 2 - SHOW ROM INFORMATION
+#
+viewbox(
+  #-- Title
+    "Добро пожаловать",
+  
+  #-- Text
+    "Вы собираетесь установить <b>"+
+	  #-- Get Config Value
+	  ini_get("rom_name")+
+	"</b> для <b>"+ini_get("rom_device")+"</b>.\n\n"+
+    
+    "Прошивка Nuke отличается своей стабильностью и скоростью.\n\n"+
+	
+      "  Версия\t: <b><#selectbg_g>"+ini_get("rom_version")+"</#></b>\n"+
+      "  Название\t: <b><#selectbg_g>Nuke</#></b>\n"+
+      "  Обновлено\t: <b><#selectbg_g>"+ini_get("rom_date")+"</#></b>\n"+
+	  "  Размер системного диска\t: <b><#selectbg_g>"+getvar("systemsize")+"мб"+"</#></b>\n"+
+      "  Размер ext раздела\t: <b><#selectbg_g>"+getvar("sdextsize")+"мб"+"</#></b>\n\n\n"+
+
+    "<~welcome.next>",
+  
+  #-- Icon
+    "@welcome"
+);
+
+
+###################################################################################################################
+#
+# STEP 3 - LICENSE
+#
+agreebox(
+  #-- Title
+    "<~terms.title>",
+  
+  #-- Subtitle / Description
+    "<~terms.desc>",
+  
+  #-- Icon
+    "@license",
+  
+  #-- Text Content ( Read from <AROMA Resource Dir>/license.txt )
+    resread("license.txt"),
+  
+  #-- Checkbox Text
+    "<~terms.check>",
+  
+  #-- Unchecked Alert Message
+    "<~terms.confirm>"
+);
+
+
+###################################################################################################################
+#
+# STEP 4 - CHANGELOG
+#
+textbox(
+  #-- Title
+    "<~changelog.title>",
+  
+  #-- Subtitle
+    "<~changelog.desc>",
+  
+  #-- Icon
+    "@update",
+  
+  #-- Arg 4
+    resread("changelog.txt")
+);
+
+checkbox(
+  #-- Title
+  "<~programms.title>",
+  #-- Subtitle
+  "<~programms.text1>",
+    #-- Icon
+  "icons/personalize",
+    #-- Arg 4
+  "customize.prop",
+  
+# Applications:
+  "<b><#selectbg_g>Приложения</#></b>","",2,
+    "Email",                    "Стандартное приложение + темный мод",0,
+	"Google Gmail",             "Стандартное приложение + темный мод",0,	
+    "Стандартная клавиатура",   "Стандартное приложение + мод русского словаря",0,
+	"Swype клавиатура",         "Отличная клава + мой мод",0,
+    "JackMusic",                "Музыка by Jack",0,	
+    "Файл менеджер",            "Rootexplorer",0,
+    "Все рингтоны",             "Устанавливаются на SD карту",0,
+    "Google Geniewidget",       "Виджет новостей",0,
+    "Google Car Home",          "Автомобильное приложение",0,	
+    "Link2SD",                  "Для переноса приложения в ext",0,	
+    "Живые обои",               "Набор живых обоев",0,
+    "Обои by Jack",             "Подборочка обоин",0,
+	"QuickPic",                 "Отличная замена стандартной галереи",0,
+	"Youtube",                  "Темный Youtube",0,
+	"Volume+",                  "Лучший улучшатель звука + мод",0,
+	"Google+",                  "Темный Google+",0,	
+	"Свои приложения",          "Скопируйте приложения в папку CustomApps",0,
+	
+  "<b><#selectbg_g>Системные приложения</#></b>","",2,
+	"Галерея Google",           "+1,5мб стандартное приложение",0,
+	"Sim Tool Kit",             "+0,1мб работа с симкой",0,
+    "USB-Tether (ПК)",          "+0,8мб для раздачи интернета",0,
+    "Видеоредактор",            "+5мб видеоредактор от Google",0,
+    "Pico TTS",                 "+6,5мб синтезатор голоса",0,
+    "HD2 Audio Utility",        "+0,1мб для изменения чувствительности микрофонов",0,
+	"Apex Launcher",            "+0,8мб Лучший ланчер для 4.0",0,
+    "Nova Launcher",            "+1,4мб Альтернатива Apex",0,
+	"Google TTS",               "+5,6мб синтезатор голоса от гугл",0,
+	"Google Voice Search",      "+2мб голосовой ввод",0,
+	"Google Talk",              "+4мб чат от Google",0,
+	
+  "<b><#selectbg_g>Моды</#></b>","",2,
+	"Русский набиратель",       "Не устанавливать с темным!",0,
+	"Темный набиратель",        "Не устанавливать с русским!",0,	
+	"Темные смс",               "Модификация сообщений",0,
+	"Темный календарь",         "Модификация календаря",0
+);
+
+viewbox(
+  "<~install.1>",
+  "<~install.2>\n\n"+
+  "<~install.3>",
+  "icons/info"
+);
+
+		#################
+		# Edit by RoadXY
+		#
+		# - Changed the finish text, original code below:
+		#install(
+		#  "Installing",
+		#  "Installing AOKP HD2 Rom...\nPlease wait...",
+		#  "icons/install"
+		#);
+		setvar("retstatus",
+		install(
+		  "<~install.4>",
+		  "<~install.5>\n<~install.6>",
+		  "icons/install"
+		  )
+		);
+		#
+		# End edit by RoadXY
+		####################
+
+# Set Next Text to 'Finish'
+ini_set("text_next", "Finish");
+
+		#################
+		# Edit by RoadXY
+		#
+		# - Changed the finish text, original code below:
+		#viewbox(
+		#  "Installation Completed",
+		#  "<#080>Congratulations..</#>\n\n"+
+		#  "Press finish and don't forget to\n"+
+		#  "install the lastest Google apps package.\n\nEnjoy !",
+		#  "icons/info"
+		#);
+
+		if getvar("retstatus")==0 then
+			checkviewbox("<~finish.1>","	<#selectbg_g><b><~finish.2></b></#>\n\n"+
+													"<~finish.3>\n"+
+													"<~finish.4>\n\n<~finish.5>\n\n"+
+													"<~finish.6> "+getvar("retstatus")+"\n\n\n\n",
+													"@welcome","<~finish.7>","0","reboot_it");
+		else
+			checkviewbox("<~notfinish.1>","	<#selectbg_g><b><~notfinish.1></b></#>\n\n"+
+													"<~notfinish.2> "+getvar("retstatus")+"\n\n",
+													"@alert","<~notfinish.3>","0","reboot_it");
+		endif;
+
+		#-- Check if reboot checkbox was checked
+		if getvar("reboot_it")=="1" then reboot("onfinish");
+			# reboot("onfinish");   - Reboot if anything finished
+			# reboot("now");        - Reboot Directly
+			# reboot("disable");    - If you set reboot("now") before, use this command to revert it.
+		endif;
+
+		#---- FINISH
+		#
+		####################

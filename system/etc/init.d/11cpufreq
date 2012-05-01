@@ -1,0 +1,26 @@
+#!/system/bin/sh
+# uncomment any of them if required
+
+###########################
+# CPU governor            #
+# Default: smartassV2     #
+###########################
+#echo interactive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+#echo interactiveX > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+#echo smartass > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+echo smartassV2 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+#echo conservative > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+#echo ondemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+
+###########################
+# CPU frequency           #
+# Default: 245 ~ 998      #
+# Min freq.:  128         #
+# Max freq.: 1190         #
+###########################
+#echo  245000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+#echo  998400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+
+#echo  128000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+#echo 1190400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+

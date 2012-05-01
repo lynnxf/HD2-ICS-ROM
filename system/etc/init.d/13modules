@@ -1,0 +1,55 @@
+#!/system/bin/sh
+
+# for mobile network (3G, HSDPA)
+if [ ! -f /system/ppp ]; then
+  insmod /system/lib/modules/msm_rmnet.ko
+fi
+
+# for VPN
+if [ -f /system/lib/modules/tun.ko ]; then
+  insmod /system/lib/modules/tun.ko
+fi
+
+# for WiFi Calling remove the #
+#if [ -f /system/lib/modules/kineto_gan.ko ]; then
+#  insmod /system/lib/modules/kineto_gan.ko
+#fi
+
+# for ALSA sound driver for UBUNTY or Other LINUX system remove # this driver useless for android.
+#if [ -f /system/lib/modules/alsa-pcm-htc-leo.ko ]; then
+#  insmod /system/lib/modules/alsa-pcm-htc-leo.ko
+#  insmod /system/lib/modules/alsa-mix-htc-leo.ko
+#fi
+
+# for CIFS remote storage driver remove the #
+#if [ -f /system/lib/modules/cifs.ko ]; then
+#  insmod /system/lib/modules/cifs.ko
+#fi
+
+# for RISERFS file system support remove the #
+#if [ -f /system/lib/modules/reiserfs.ko ]; then
+#  insmod /system/lib/modules/reiserfs.ko
+#fi
+
+#Touch screen scroll boost
+renice -15 `pgrep htcleo_touch_wq`
+
+sysctl -w kernel.panic_on_oops=0
+sysctl -w vm.overcommit_memory=0
+sysctl -w vm.panic_on_oom=0
+sysctl -w vm.oom_kill_allocating_task=0
+sysctl -w vm.overcommit_ratio=1000
+sysctl -w vm.page-cluster=0
+
+mount -o rw,remount,noatime,nodiratime /system
+
+/system/xbin/busybox --install -s /system/xbin/
+
+#Here I will disable keyboard auto light in dark ON, in light OFF mod it's ON by default in kernel.
+if [ -e /sys/devices/platform/btn_backlight_manager/button_auto ]; then
+echo 0 > /sys/devices/platform/btn_backlight_manager/button_auto
+fi
+
+# Allow everybody to read the xt_qtaguid resource tracking misc dev.
+# This is needed by any process that uses socket tagging.
+chmod 0644 /dev/xt_qtaguid

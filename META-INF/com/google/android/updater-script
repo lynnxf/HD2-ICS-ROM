@@ -1,0 +1,407 @@
+##
+# AROMA Installer - Installer Script
+# (c) 2011 by Ahmad Amarullah
+# amarullz - xda-developers
+##
+ui_print("---------------------------------------------------------------");
+ui_print("         Ice Cream Sandwich Nuke v2.0           ");
+ui_print("---------------------------------------------------------------");
+ui_print("@    Mounting partitions");
+ui_print("Formatting System and Boot");
+	format("MTD", "boot");
+	format("MTD", "system");
+	mount("MTD", "system", "/system");
+	mount("MTD", "userdata", "/data");
+	mount("MTD", "cache", "/cache");
+ui_print("Wiping Dalvik-Cache");
+delete_recursive("/data/dalvik-cache");
+delete_recursive("/sd-ext/dalvik-cache");
+show_progress(0.500000, 0);
+show_progress(0.200000, 0);
+ui_print("Copying files to /system");
+package_extract_dir("system", "/system");
+	run_program("/sbin/mkdir", "/tmp");
+#System Files
+# Email
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.1") == "1"
+then
+ui_print("@  App: Email");
+package_extract_dir("install/Email", "/data/app");
+endif;
+# Google Gmail
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.2") == "1"
+then
+ui_print("@  App: Google Gmail");
+package_extract_dir("install/Gmail", "/data/app");
+endif;
+# Stock LatinIme
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.3") == "1"
+then
+ui_print("@  App: Stock Keyboard");
+package_extract_dir("install/Latin", "/data/app");
+endif;
+# Swype
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.4") == "1"
+then
+ui_print("@  App: Swype Keyboard");
+package_extract_dir("install/Swype", "/data/app");
+endif;
+# Music by Jack
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.5") == "1"
+then
+ui_print("@  App: JackMusic");
+package_extract_dir("install/JackMusic", "/data/app");
+endif;
+# Filemanager
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.6") == "1"
+then
+ui_print("@  App: Filemanager");
+package_extract_dir("install/Filemanager", "/data/app");
+endif;
+# Ringtones
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.7") == "1"
+then
+ui_print("@  App: Ringtones");
+package_extract_dir("install/Ringtones", "/sdcard");
+endif;
+# Google Geniewidget
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.8") == "1"
+then
+ui_print("@  App: Google Geniewidget");
+package_extract_dir("install/Genie", "/data/app");
+endif;
+# Google Car home
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.9") == "1"
+then
+ui_print("@  App: Google Car Home");
+package_extract_dir("install/Car", "/data/app");
+endif;
+# Link2SD
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.10") == "1"
+then
+ui_print("@  App: Link2SD");
+package_extract_dir("install/Link", "/data/app");
+endif;
+# (Live)Wallpapers
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.11") == "1"
+then
+ui_print("@  App: (Live)Wallpapers");
+package_extract_dir("install/LiveWallpapers", "/data/app");
+endif;
+# Wallpapers
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.12") == "1"
+then
+ui_print("@  App: Wallpapers");
+package_extract_dir("install/Wallpapers", "/data/app");
+endif;
+# QuickPic
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.13") == "1"
+then
+ui_print("@  App: QuickPic");
+package_extract_dir("install/QuickPic", "/data/app");
+endif;
+# Youtube
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.14") == "1"
+then
+ui_print("@  App: Youtube");
+package_extract_dir("install/Youtube", "/data/app");
+endif;
+# Volume+
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.15") == "1"
+then
+ui_print("@  App: Volume+");
+package_extract_dir("install/Volume", "/data/app");
+endif;
+# PlusOne
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.16") == "1"
+then
+ui_print("@  App: PlusOne");
+package_extract_dir("PlusOne", "/data/app");
+endif;
+# CustomApps
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.17") == "1"
+then
+ui_print("@  App: CustomApps");
+package_extract_dir("CustomApps", "/data/app");
+endif;
+########################################################################
+# Stock Gallery
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.2.1") == "1"
+then
+ui_print("@  App: Stock Gallery");
+package_extract_dir("install/Gallery", "/system/app");
+endif;
+# Sim Toolkit
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.2.2") == "1"
+then
+ui_print("@  App: Sim Toolkit");
+package_extract_dir("install/Stk", "/system/app");
+endif;
+# USB-Tether
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.2.3") == "1"
+then
+ui_print("@  App: Tether");
+package_extract_dir("install/Tether", "/system/app");
+endif;
+# Video Editor
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.2.4") == "1"
+then
+ui_print("@  App: Video Editor");
+package_extract_dir("install/Video", "/system");
+endif;
+# Pico tts
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.2.5") == "1"
+then
+ui_print("@  App: Pico tts + languages");
+package_extract_dir("install/Tts", "/system");
+endif;
+# HD2 Audio Utility
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.2.6") == "1"
+then
+ui_print("@  App: HD2 Audio Utility");
+package_extract_dir("install/Hd2", "/system/app");
+endif;
+# Apex Launcher
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.2.7") == "1"
+then
+ui_print("@  App: Replace Stock with Apex Launcher");
+package_extract_dir("install/Apex", "/system/app");
+endif;
+# Nova Launcher Tab
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.2.8") == "1"
+then
+ui_print("@  App: Add Nova Launcher Tab-Mod");
+package_extract_dir("install/Nova", "/system/app");
+endif;
+# Google TTS
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.2.9") == "1"
+then
+ui_print("@  App: Google TTS)");
+package_extract_dir("install/GoogleTTS", "/system");
+endif;
+# Google Voice Search
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.2.10") == "1"
+then
+ui_print("@  App: Google Voice Search");
+package_extract_dir("install/Voice", "/system/app");
+endif;
+# Google Talk
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.2.11") == "1"
+then
+ui_print("@  App: Google Talk");
+package_extract_dir("install/Talk", "/system");
+endif;
+#####################################################################
+# Mods
+# RUScont
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.3.1") == "1"
+then
+ui_print("@  App: Rus dialer");
+package_extract_dir("install/ContactsRus", "/system/app");
+endif;
+# blackcont
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.3.2") == "1"
+then
+ui_print("@  App: ContactsBlack");
+package_extract_dir("install/ContactsBlack", "/system/app");
+endif;
+# SMS
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.3.3") == "1"
+then
+ui_print("@  App: Black sms");
+package_extract_dir("install/sms", "/system/app");
+endif;
+# Calendar
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.3.4") == "1"
+then
+ui_print("@  App: Black Calendar");
+package_extract_dir("install/Calendar", "/system/app");
+endif;
+show_progress(0.500000, 0);
+symlink("busybox", "/system/xbin/[", "/system/xbin/[[",
+        "/system/xbin/arp", "/system/xbin/ash", "/system/xbin/awk",
+        "/system/xbin/base64", "/system/xbin/basename", "/system/xbin/bbconfig",
+        "/system/xbin/blockdev", "/system/xbin/brctl", "/system/xbin/bunzip2",
+        "/system/xbin/bzcat", "/system/xbin/bzip2", "/system/xbin/cal",
+        "/system/xbin/cat", "/system/xbin/catv", "/system/xbin/chattr",
+        "/system/xbin/chgrp", "/system/xbin/chmod", "/system/xbin/chown",
+        "/system/xbin/chroot", "/system/xbin/clear", "/system/xbin/cmp",
+        "/system/xbin/comm", "/system/xbin/cp", "/system/xbin/cpio",
+        "/system/xbin/crond", "/system/xbin/crontab", "/system/xbin/cut",
+        "/system/xbin/date", "/system/xbin/dc", "/system/xbin/dd",
+        "/system/xbin/depmod", "/system/xbin/devmem", "/system/xbin/df",
+        "/system/xbin/diff", "/system/xbin/dirname", "/system/xbin/dmesg",
+        "/system/xbin/dnsd", "/system/xbin/dos2unix", "/system/xbin/du",
+        "/system/xbin/echo", "/system/xbin/ed", "/system/xbin/egrep",
+        "/system/xbin/env", "/system/xbin/expand", "/system/xbin/expr",
+        "/system/xbin/false", "/system/xbin/fdisk", "/system/xbin/fgrep",
+        "/system/xbin/find", "/system/xbin/flash_lock",
+        "/system/xbin/flash_unlock", "/system/xbin/flashcp",
+        "/system/xbin/flock", "/system/xbin/fold", "/system/xbin/free",
+        "/system/xbin/freeramdisk", "/system/xbin/fsync", "/system/xbin/ftpget",
+        "/system/xbin/ftpput", "/system/xbin/fuser", "/system/xbin/getopt",
+        "/system/xbin/grep", "/system/xbin/groups", "/system/xbin/gunzip",
+        "/system/xbin/gzip", "/system/xbin/halt", "/system/xbin/head",
+        "/system/xbin/hexdump", "/system/xbin/id", "/system/xbin/ifconfig",
+        "/system/xbin/insmod", "/system/xbin/install", "/system/xbin/iostat",
+        "/system/xbin/ip", "/system/xbin/kill", "/system/xbin/killall",
+        "/system/xbin/killall5", "/system/xbin/length", "/system/xbin/less",
+        "/system/xbin/ln", "/system/xbin/losetup", "/system/xbin/ls",
+        "/system/xbin/lsattr", "/system/xbin/lsmod", "/system/xbin/lsusb",
+        "/system/xbin/lzcat", "/system/xbin/lzma", "/system/xbin/lzop",
+        "/system/xbin/lzopcat", "/system/xbin/man", "/system/xbin/md5sum",
+        "/system/xbin/mesg", "/system/xbin/mkdir", "/system/xbin/mke2fs",
+        "/system/xbin/mkfifo", "/system/xbin/mkfs.ext2",
+        "/system/xbin/mkfs.vfat", "/system/xbin/mknod", "/system/xbin/mkswap",
+        "/system/xbin/mktemp", "/system/xbin/modinfo", "/system/xbin/modprobe",
+        "/system/xbin/more", "/system/xbin/mount", "/system/xbin/mountpoint",
+        "/system/xbin/mpstat", "/system/xbin/mv", "/system/xbin/nanddump",
+        "/system/xbin/nandwrite", "/system/xbin/netstat", "/system/xbin/nice",
+        "/system/xbin/nohup", "/system/xbin/nslookup", "/system/xbin/ntpd",
+        "/system/xbin/od", "/system/xbin/patch", "/system/xbin/pgrep",
+        "/system/xbin/pidof", "/system/xbin/ping", "/system/xbin/pkill",
+        "/system/xbin/pmap", "/system/xbin/poweroff", "/system/xbin/printenv",
+        "/system/xbin/printf", "/system/xbin/ps", "/system/xbin/pstree",
+        "/system/xbin/pwd", "/system/xbin/pwdx", "/system/xbin/rdev",
+        "/system/xbin/readlink", "/system/xbin/realpath", "/system/xbin/renice",
+        "/system/xbin/reset", "/system/xbin/resize", "/system/xbin/rev",
+        "/system/xbin/rm", "/system/xbin/rmdir", "/system/xbin/rmmod",
+        "/system/xbin/route", "/system/xbin/run-parts", "/system/xbin/rx",
+        "/system/xbin/sed", "/system/xbin/seq", "/system/xbin/setconsole",
+        "/system/xbin/setserial", "/system/xbin/setsid", "/system/xbin/sh",
+        "/system/xbin/sha1sum", "/system/xbin/sha256sum",
+        "/system/xbin/sha512sum", "/system/xbin/sleep", "/system/xbin/sort",
+        "/system/xbin/split", "/system/xbin/stat", "/system/xbin/strings",
+        "/system/xbin/stty", "/system/xbin/sum", "/system/xbin/swapoff",
+        "/system/xbin/swapon", "/system/xbin/sync", "/system/xbin/sysctl",
+        "/system/xbin/tac", "/system/xbin/tail", "/system/xbin/tar",
+        "/system/xbin/tee", "/system/xbin/telnet", "/system/xbin/telnetd",
+        "/system/xbin/test", "/system/xbin/tftp", "/system/xbin/tftpd",
+        "/system/xbin/time", "/system/xbin/timeout", "/system/xbin/top",
+        "/system/xbin/touch", "/system/xbin/tr", "/system/xbin/traceroute",
+        "/system/xbin/true", "/system/xbin/ttysize", "/system/xbin/tune2fs",
+        "/system/xbin/umount", "/system/xbin/uname", "/system/xbin/uncompress",
+        "/system/xbin/unexpand", "/system/xbin/uniq", "/system/xbin/unix2dos",
+        "/system/xbin/unlzma", "/system/xbin/unlzop", "/system/xbin/unxz",
+        "/system/xbin/unzip", "/system/xbin/uptime", "/system/xbin/usleep",
+        "/system/xbin/uudecode", "/system/xbin/uuencode", "/system/xbin/vi",
+        "/system/xbin/watch", "/system/xbin/wc", "/system/xbin/wget",
+        "/system/xbin/which", "/system/xbin/whoami", "/system/xbin/xargs",
+        "/system/xbin/xz", "/system/xbin/xzcat", "/system/xbin/yes",
+        "/system/xbin/zcat");
+symlink("iwmulticall", "/system/xbin/iwconfig", "/system/xbin/iwgetid",
+        "/system/xbin/iwlist", "/system/xbin/iwpriv",
+        "/system/xbin/iwspy");
+symlink("mksh", "/system/bin/sh");
+symlink("toolbox", "/system/bin/cat", "/system/bin/chmod",
+        "/system/bin/chown", "/system/bin/cmp", "/system/bin/date",
+        "/system/bin/dd", "/system/bin/df", "/system/bin/dmesg",
+        "/system/bin/getevent", "/system/bin/getprop", "/system/bin/hd",
+        "/system/bin/id", "/system/bin/ifconfig", "/system/bin/iftop",
+        "/system/bin/insmod", "/system/bin/ioctl", "/system/bin/ionice",
+        "/system/bin/kill", "/system/bin/ln", "/system/bin/log",
+        "/system/bin/ls", "/system/bin/lsmod", "/system/bin/lsof",
+        "/system/bin/mkdir", "/system/bin/mount", "/system/bin/mv",
+        "/system/bin/nandread", "/system/bin/netstat",
+        "/system/bin/newfs_msdos", "/system/bin/notify", "/system/bin/printenv",
+        "/system/bin/ps", "/system/bin/r", "/system/bin/reboot",
+        "/system/bin/renice", "/system/bin/rm", "/system/bin/rmdir",
+        "/system/bin/rmmod", "/system/bin/route", "/system/bin/schedtop",
+        "/system/bin/sendevent", "/system/bin/setconsole",
+        "/system/bin/setprop", "/system/bin/sleep", "/system/bin/smd",
+        "/system/bin/start", "/system/bin/stop", "/system/bin/sync",
+        "/system/bin/top", "/system/bin/touch", "/system/bin/umount",
+        "/system/bin/uptime", "/system/bin/vmstat", "/system/bin/watchprops",
+        "/system/bin/wipe");
+show_progress(0.800000, 0);
+set_perm_recursive(0, 0, 0755, 0644, "/system");
+set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
+set_perm(0, 3003, 02750, "/system/bin/netcfg");
+set_perm(0, 3004, 02755, "/system/bin/ping");
+set_perm(0, 2000, 06750, "/system/bin/run-as");
+set_perm_recursive(1002, 1002, 0755, 0440, "/system/etc/bluetooth");
+set_perm(0, 0, 0755, "/system/etc/bluetooth");
+set_perm(1000, 1000, 0640, "/system/etc/bluetooth/auto_pairing.conf");
+set_perm(3002, 3002, 0444, "/system/etc/bluetooth/blacklist.conf");
+set_perm(1002, 1002, 0440, "/system/etc/dbus.conf");
+set_perm(1014, 2000, 0550, "/system/etc/dhcpcd/dhcpcd-run-hooks");
+set_perm_recursive(0, 2000, 0755, 0644, "/system/vendor");
+set_perm_recursive(1000, 1000, 0771, 0644, "/data/app");
+set_perm(0, 0, 0644, "/system/vendor/etc/audio_effects.conf");
+set_perm_recursive(0, 0, 0755, 0644, "/system/vendor/firmware");
+set_perm(0, 2000, 0755, "/system/vendor/firmware");
+set_perm_recursive(0, 2000, 0755, 0755, "/system/xbin");
+set_perm(0, 0, 06755, "/system/xbin/librank");
+set_perm(0, 0, 06755, "/system/xbin/procmem");
+set_perm(0, 0, 06755, "/system/xbin/procrank");
+set_perm(0, 0, 06755, "/system/xbin/busybox");
+set_perm(0, 0, 06755, "/system/xbin/su");
+symlink("/system/xbin/su", "/system/bin/su");
+symlink("/system/bin/ash", "/system/bin/sh");
+symlink("/system/vendor/firmware/fw_bcm4329.bin", "/system/etc/firmware/fw_bcm4329.bin");
+symlink("/system/vendor/firmware/fw_bcm4329_apsta.bin", "/system/etc/firmware/fw_bcm4329_apsta.bin");
+symlink("/system/fonts/Roboto-Regular.ttf", "/system/fonts/DroidSans.ttf");
+symlink("/system/fonts/Roboto-Bold.ttf", "/system/fonts/DroidSans-Bold.ttf");
+show_progress(0.900000, 0);
+    package_extract_file("kernel/checksys.sh","/tmp/checksys.sh");
+	set_perm(0, 0, 755, "/tmp/checksys.sh");
+	run_program("/tmp/checksys.sh");
+if file_getprop("/tmp/nfo.prop","clk") == "true"
+then
+ui_print("cLK Bootloader found...."); 
+    ui_print(" ");
+    ui_print("Flashing cLK kernel...");
+    assert(package_extract_file("kernel/boot.img", "/tmp/boot.img"),
+    write_raw_image("/tmp/boot.img", "boot"),
+    delete("/tmp/boot.img"));
+    package_extract_dir("clk", "/system");
+    set_perm(0, 0, 0777, "/system/etc/init.d/97ppp");
+	set_perm_recursive(0, 2000, 0755, 0750, "/system/etc/init.d");
+	set_perm_recursive(0, 0, 0755, 0555, "/system/etc/ppp");
+else
+    ui_print("MAGLDR Bootloader found...");
+    ui_print(" ");
+    ui_print("Flashing MAGLDR kernel...");
+    mount("MTD", "boot", "/boot");
+    package_extract_dir("kernel/boot", "/boot");
+	package_extract_dir("magldr", "/system");
+	set_perm_recursive(0, 2000, 0755, 0750, "/system/etc/init.d");
+endif;
+show_progress(10, 0.500000);
+delete("/tmp");
+unmount("/system");
+unmount("/boot");
+unmount("/data");
+ui_print("Installation complete!");
