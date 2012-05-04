@@ -4,7 +4,7 @@
 # amarullz - xda-developers
 ##
 ui_print("---------------------------------------------------------------");
-ui_print("         Ice Cream Sandwich Nuke v2.0           ");
+ui_print("         Ice Cream Sandwich Nuke v2.2           ");
 ui_print("---------------------------------------------------------------");
 ui_print("@    Mounting partitions");
 ui_print("Formatting System and Boot");
@@ -113,26 +113,26 @@ then
 ui_print("@  App: QuickPic");
 package_extract_dir("install/QuickPic", "/data/app");
 endif;
-# Youtube
-if
-    file_getprop("/tmp/aroma-data/customize.prop","item.1.14") == "1"
-then
-ui_print("@  App: Youtube");
-package_extract_dir("install/Youtube", "/data/app");
-endif;
 # Volume+
 if
-    file_getprop("/tmp/aroma-data/customize.prop","item.1.15") == "1"
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.14") == "1"
 then
 ui_print("@  App: Volume+");
 package_extract_dir("install/Volume", "/data/app");
 endif;
-# PlusOne
+# GooglePlus
+if
+    file_getprop("/tmp/aroma-data/customize.prop","item.1.15") == "1"
+then
+ui_print("@  App: GooglePlus");
+package_extract_dir("install/GooglePlus", "/data/app");
+endif;
+# Chrome
 if
     file_getprop("/tmp/aroma-data/customize.prop","item.1.16") == "1"
 then
-ui_print("@  App: PlusOne");
-package_extract_dir("PlusOne", "/data/app");
+ui_print("@  App: Chrome");
+package_extract_dir("install/Chrome", "/data/app");
 endif;
 # CustomApps
 if
@@ -248,6 +248,13 @@ if
 then
 ui_print("@  App: Black Calendar");
 package_extract_dir("install/Calendar", "/system/app");
+endif;
+# Newicons
+if
+   file_getprop("/tmp/aroma-data/customize.prop","item.3.5") == "1"
+then
+ui_print("@  App: Newicons");
+package_extract_dir("install/Newicons", "/system/app");
 endif;
 show_progress(0.500000, 0);
 symlink("busybox", "/system/xbin/[", "/system/xbin/[[",

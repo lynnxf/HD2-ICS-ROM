@@ -1,5 +1,5 @@
 <@center><b><#selectbg_g>Nuke License</#></b>
-Версия 2.1, Апрель 2010
+Версия 2.2, Май 2012
 <u>http://www.icshd2.ucoz.ru/</u>
 
 <b><#selectbg_g>Условия использования</#></b></@>
