@@ -1,22 +1,22 @@
 #!/system/xbin/bash
-: '
- ============ Copyright (C) 2010 Jared Rummler (JRummy16) ============
- 
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- 
- You should have received a copy of the GNU General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
- =====================================================================
-' 
+
+# ============ Copyright (C) 2010 Jared Rummler (JRummy16) ============
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# 
+# =====================================================================
+
 
 . /system/etc/liberty.cfg
 
@@ -33,13 +33,19 @@ if busybox [ $ENABLE_CRON -eq 1 -a -n "$( busybox | busybox grep crond )" ]; the
 	# todo - support other timezones
 	timezone=`date +%z`
 	if busybox [ $timezone = "-0800" ]; then
-	  TZ=PST8PDT
+		TZ=PST8PDT
 	elif busybox [ $timezone = "-0700" ]; then
-	  TZ=MST7MDT
+		TZ=MST7MDT
 	elif busybox [ $timezone = "-0600" ]; then
-	  TZ=CST6CDT
+		TZ=CST6CDT
 	elif busybox [ $timezone = "-0500" ]; then
-	  TZ=EST5EDT
+		TZ=EST5EDT
+	elif busybox [ $timezone = "+0200" ]; then
+		TZ=IDT-2
+	elif busybox [ $timezone = "+0300" ]; then
+		TZ=IDT-3
+	elif busybox [ $timezone = "-0000" ]; then
+		TZ=IDT-0 
 	else
 		TZ=PST8PDT
 	fi
